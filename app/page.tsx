@@ -3,9 +3,13 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Caveat } from 'next/font/google';
 import moonImage from '../public/moon.jpg';
 import hero from '../public/superhero.png';
+import cloudImage from '../public/cloud1.png';
 
+
+const caveat = Caveat({ subsets: ["latin"], weight: "700"   });
 const Home = () => {
   return (
     <div className="container mx-auto px-11">
@@ -18,7 +22,7 @@ const Home = () => {
             priority
           />
         </div>
-        {/* Animated Stars */}
+        
         <div className="absolute inset-0 overflow-hidden">
           <div className="stars">
             {Array.from({ length: 50 }).map((_, index) => (
@@ -71,8 +75,20 @@ const Home = () => {
                       priority
                     />
                   </motion.div>
-                  <div className="absolute -top-8 -right-8 text-black bg-white p-4 rounded-lg shadow-lg dialogue-cloud">
-                    Hi there...!
+                  <div className="absolute top-[-70px] -right-4 w-48 h-32">
+                    <Image
+                      src={cloudImage}
+                      alt="Dialogue Cloud"
+                      className="w-full h-full object-contain"
+                    />
+                    <motion.div
+                      className={`absolute top-11 left-8 text-black text-2xl font-extrabold ${caveat.className}`}
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.5 }} 
+                    >
+                      🖐🏿 Hi There..!
+                    </motion.div>
                   </div>
                 </div>
               </motion.div>
@@ -80,67 +96,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <style jsx>{`
-        .stars {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          z-index: 1;
-        }
-
-        .star {
-          position: absolute;
-          background: white;
-          border-radius: 50%;
-          animation: twinkle 1.5s infinite alternate;
-          opacity: 0.8;
-        }
-
-        @keyframes twinkle {
-          0% {
-            opacity: 0.5;
-            transform: scale(1);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1.5);
-          }
-        }
-
-        .star:nth-child(1) { top: 10%; left: 20%; width: 5px; height: 5px; }
-        .star:nth-child(2) { top: 30%; left: 40%; width: 6px; height: 6px; }
-        .star:nth-child(3) { top: 15%; left: 60%; width: 4px; height: 4px; }
-        .star:nth-child(4) { top: 50%; left: 70%; width: 7px; height: 7px; }
-        .star:nth-child(5) { top: 80%; left: 30%; width: 3px; height: 3px; }
-        .star:nth-child(6) { top: 25%; left: 80%; width: 5px; height: 5px; }
-        .star:nth-child(7) { top: 60%; left: 10%; width: 6px; height: 6px; }
-        .star:nth-child(8) { top: 40%; left: 50%; width: 5px; height: 5px; }
-        .star:nth-child(9) { top: 70%; left: 90%; width: 4px; height: 4px; }
-        .star:nth-child(10) { top: 20%; left: 30%; width: 6px; height: 6px; }
-
-        .dialogue-cloud {
-          position: absolute;
-          padding: 10px 20px;
-          border-radius: 15px;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .dialogue-cloud::after {
-          content: "";
-          position: absolute;
-          bottom: -10px;
-          left: 20px;
-          width: 0;
-          height: 0;
-          border-left: 10px solid transparent;
-          border-right: 10px solid transparent;
-          border-top: 10px solid white;
-        }
-      `}</style>
     </div>
   );
 };
