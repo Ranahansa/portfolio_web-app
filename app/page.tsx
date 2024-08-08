@@ -4,7 +4,7 @@ import Header from './layout/Header'
 const Home = () => {
   return (
     <div>
-      <Header />
+      <p>hello</p>
     </div>
   )
 }

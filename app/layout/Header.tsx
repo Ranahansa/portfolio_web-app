@@ -46,7 +46,7 @@ const Header = () => {
 
     const handleItemClick = (index: number, path: string) => {
         setActiveIndex(index);
-        setIsOpen(false); // Close mobile menu after item click
+        setIsOpen(false);
         setTimeout(() => {
             setActiveIndex(null);
             router.push(path);
