@@ -1,16 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Caveat } from 'next/font/google';
 import moonImage from '../public/moon.jpg';
 import hero from '../public/superhero.png';
 import cloudImage from '../public/cloud1.png';
+import { saveAs } from 'file-saver';
 
+const caveat = Caveat({ subsets: ["latin"], weight: "700" });
 
-const caveat = Caveat({ subsets: ["latin"], weight: "700"   });
 const Home = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleResumeDownload = () => {
+    setLoading(true);
+    saveAs('/resume.pdf', 'my-resume-filename.pdf');
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000); 
+  };
+
   return (
     <div className="container mx-auto px-11">
       <section className="relative bg-gray-900 text-white py-24 md:py-32 rounded-2xl mt-3 overflow-hidden">
@@ -22,7 +33,7 @@ const Home = () => {
             priority
           />
         </div>
-        
+
         <div className="absolute inset-0 overflow-hidden">
           <div className="stars">
             {Array.from({ length: 50 }).map((_, index) => (
@@ -40,8 +51,19 @@ const Home = () => {
                 Discover the power of our cutting-edge portfolio solutions and
                 transform your digital footprint.
               </p>
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-md transition-colors duration-300">
-                Get Started
+              <button
+                className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-md transition-colors duration-300 flex items-center ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={handleResumeDownload}
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="loader"></span>
+                    <span className="ml-2">Downloading...</span>
+                  </>
+                ) : (
+                  'Download Resume'
+                )}
               </button>
             </div>
             <div className="relative flex justify-center">
@@ -85,7 +107,7 @@ const Home = () => {
                       className={`absolute top-11 left-8 text-black text-2xl font-extrabold ${caveat.className}`}
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.5 }} 
+                      transition={{ duration: 0.5, delay: 0.5 }}
                     >
                       🖐🏿 Hi There..!
                     </motion.div>
