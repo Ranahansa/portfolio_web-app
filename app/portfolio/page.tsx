@@ -2,7 +2,7 @@ import React from 'react'
 
 const Portfolio = () => {
   return (
-    <div className='text-3xl font-bold text-white'> Portfolio</div>
+    <div className='container mx-auto px-4 md:px-12 py-8 text-3xl font-bold'>Portfolio</div>
   )
 }
 
